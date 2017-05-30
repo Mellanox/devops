@@ -6,6 +6,7 @@ folder('project-seeds') {
 
 job('Seed1 test') {
   
+  displayName('Seed1 Job Example')
   concurrentBuild(true)
 
   logRotator {
@@ -16,7 +17,14 @@ job('Seed1 test') {
 
   parameters {
 	stringParam('proj','none')
-	nodeLabelParam('node','hpctest')
+	nodeParam('node') {
+		description('Select test nodes')
+		defaultNodes(['hpc-test-node'])
+		allowedNodes(['hpc-test-node','hpc-arm-04'])
+		trigger('allCases')
+		eligibility('IgnoreOfflineNodeEligibility')
+	}
+
   }
 
   wrappers {
@@ -24,7 +32,6 @@ job('Seed1 test') {
 	  timestamps()
   }
 
-  displayName('Seed1 Job Example')
 
   scm {
     github('miked-mellanox/devops.git', 'master')
