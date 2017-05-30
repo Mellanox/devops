@@ -3,11 +3,12 @@ folder('project-seeds') {
 	description('Folder for all seeds')
 }
 
-logRotator(14,10,10,10)
 
 job('Seed1 test') {
   
   concurrentBuild(true)
+  logRotator(14,10,10,10)
+
   parameters {
 	  stringParam('proj','none')
   }
