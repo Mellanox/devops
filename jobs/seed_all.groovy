@@ -19,7 +19,7 @@ job('Seed1 test') {
 	stringParam('proj','none')
 	labelParam('my_label') {
 		defaultValue('hpc-*')
-		AllNodes('allCases','AllNodeEligibility')
+		allNodes('allCases','AllNodeEligibility')
 		description('Run on nodes')
 	}
 //	nodeParam('node') {
