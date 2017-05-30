@@ -1,14 +1,12 @@
-folder('project-seeds') {
-	displayName('Project Seeds')
-	description('Folder for all seeds')
-}
+//folder('project-seeds') {
+//	displayName('Project Seeds')
+//	description('Folder for all seeds')
+//}
 
 
 job('Seed1 test') {
   
-  displayName('Seed1 Job Example')
   concurrentBuild(true)
-  label('hpc-test-node')
 
   logRotator {
     daysToKeep(1)
@@ -17,11 +15,6 @@ job('Seed1 test') {
   }
 
   parameters {
-	labelParam('my_label') {
-		defaultValue('hpc-*')
-		allNodes('allCases','AllNodeEligibility')
-		description('Run on nodes')
-	}
 	nodeParam('node') {
 		description('Select test nodes')
 		defaultNodes(['hpc-test-node'])
