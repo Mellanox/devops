@@ -19,7 +19,7 @@ job('Seed1 test') {
 		description('Select test nodes')
 		defaultNodes(['hpc-test-node'])
 		allowedNodes(['hpc-test-node','hpc-arm-04'])
-		trigger('allCases')
+		trigger('allowMultiSelectionForConcurrentBuilds')
 		eligibility('IgnoreOfflineNodeEligibility')
 	}
 
