@@ -32,7 +32,7 @@ job('Seed1 test') {
 
 
   scm {
-    github('miked-mellanox/devops.git', 'master')
+    github('miked-mellanox/devops', 'master')
   }
 
   triggers {
