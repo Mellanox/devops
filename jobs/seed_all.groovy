@@ -1,13 +1,13 @@
 folder('project-seeds') {
 	displayName('Project Seeds')
 	description('Folder for all seeds')
-	concurrentBuild(true)
 }
 
 logRotator(14,10,10,10)
 
 job('Seed1 test') {
   
+  concurrentBuild(true)
   parameters {
 	  stringParam('proj','none')
   }
