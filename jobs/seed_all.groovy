@@ -8,6 +8,7 @@ job('Seed1 test') {
   
   displayName('Seed1 Job Example')
   concurrentBuild(true)
+  label('hpc-test-node')
 
   logRotator {
     daysToKeep(1)
@@ -47,6 +48,7 @@ job('Seed1 test') {
   }
 
   steps {
+    shell('echo START')
     dsl {
       external('jobs/*.groovy')  
       // default behavior
