@@ -7,10 +7,16 @@ folder('project-seeds') {
 job('Seed1 test') {
   
   concurrentBuild(true)
-  logRotator(14,10,10,10)
+
+  logRotator {
+    daysToKeep(1)
+    numToKeep(5)
+    artifactNumToKeep(1)
+  }
 
   parameters {
-	  stringParam('proj','none')
+	stringParam('proj','none')
+	nodeLabelParam('node','hpctest')
   }
 
   wrappers {
