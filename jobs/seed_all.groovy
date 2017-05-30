@@ -17,19 +17,18 @@ job('Seed1 test') {
   }
 
   parameters {
-	stringParam('proj','none')
 	labelParam('my_label') {
 		defaultValue('hpc-*')
 		allNodes('allCases','AllNodeEligibility')
 		description('Run on nodes')
 	}
-//	nodeParam('node') {
-//		description('Select test nodes')
-//		defaultNodes(['hpc-test-node'])
-//		allowedNodes(['hpc-test-node','hpc-arm-04'])
-//		trigger('allCases')
-//		eligibility('IgnoreOfflineNodeEligibility')
-//	}
+	nodeParam('node') {
+		description('Select test nodes')
+		defaultNodes(['hpc-test-node'])
+		allowedNodes(['hpc-test-node','hpc-arm-04'])
+		trigger('allCases')
+		eligibility('IgnoreOfflineNodeEligibility')
+	}
 
   }
 
