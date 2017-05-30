@@ -1,11 +1,19 @@
 folder('project-seeds') {
 	displayName('Project Seeds')
 	description('Folder for all seeds')
+	concurrentBuild()
 }
 
-job('Seed All') {
+logRotator(14,10,10,10)
 
-  displayName('Seed DSK Example')
+job('Seed1 test') {
+
+  wrappers {
+	  colorizeOutput()
+	  timestamps()
+  }
+
+  displayName('Seed1 Job Example')
 
   scm {
     github('miked-mellanox/devops.git', 'master')
