@@ -34,18 +34,18 @@ job('Seed1 test') {
 
   scm {
     git {
-	    remote {
-		    github('miked-mellanox/devops','ssh')
-                    refspec('+refs/pull/*:refs/remotes/origin/pr/*')
-		    credentials('549927eb-7f38-4a8f-997a-81dd63605782')
-	    }
-	    branch('${sha1}')
+	remote {
+	        github('miked-mellanox/devops','ssh')
+                refspec('+refs/pull/*:refs/remotes/origin/pr/*')
+	        credentials('549927eb-7f38-4a8f-997a-81dd63605782')
+	}
+	branch('${sha1}')
     }
   }
 
 
   triggers {
-      githubPullRequest {
+      pullRequest {
           admin('mellanox-hpc')
           admins(['Mellanox','hcoll-team'])
           orgWhitelist(['mellanox-hpc', 'Mellanox'])
