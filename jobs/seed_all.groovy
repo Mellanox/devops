@@ -45,7 +45,7 @@ job('Seed1 test') {
 
 
   triggers {
-      pullRequest {
+      githubPullRequest {
           admin('mellanox-hpc')
           admins(['Mellanox','hcoll-team'])
           orgWhitelist(['mellanox-hpc', 'Mellanox'])
@@ -54,6 +54,7 @@ job('Seed1 test') {
           onlyTriggerPhrase()
           permitAll()
           allowMembersOfWhitelistedOrgsAsAdmin()
+	  useGitHubHooks()
           extensions {
               commitStatus {
                   context('MellanoxLab')
@@ -67,7 +68,8 @@ job('Seed1 test') {
   }
 
   steps {
-    shell('echo START')
+    shell('echo START on $(hostname)')
+    shell('env')
     dsl {
       external('jobs/*.groovy')  
       // default behavior
