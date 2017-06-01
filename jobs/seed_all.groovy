@@ -15,7 +15,7 @@ job('Seed1 test') {
   }
 
   parameters {
-	stringParam('sha1')
+	stringParam('sha1', 'origin/master','git ref to build')
 	nodeParam('node') {
 		description('Select test nodes')
 		defaultNodes(['hpc-test-node'])
@@ -40,6 +40,9 @@ job('Seed1 test') {
 	        credentials('549927eb-7f38-4a8f-997a-81dd63605782')
 	}
 	branch('${sha1}')
+	extensions {
+           wipeOutWorkspace()
+        }
     }
   }
 
