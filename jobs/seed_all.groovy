@@ -46,23 +46,24 @@ job('Seed1 test') {
 
   triggers {
       githubPullRequest {
-          admin('mellanox-hpc')
-          admins(['Mellanox','hcoll-team'])
+          admins(['mellanox-hpc','Mellanox','hcoll-team'])
           orgWhitelist(['mellanox-hpc', 'Mellanox'])
           cron('H/2 * * * *')
           triggerPhrase('bot:retest')
           onlyTriggerPhrase()
           permitAll()
+	  autoCloseFailedPullRequests()
+	  displayBuildErrorsOnDownstreamBuilds()
           allowMembersOfWhitelistedOrgsAsAdmin()
 	  useGitHubHooks()
           extensions {
-              commitStatus {
-                  context('MellanoxLab')
-                  completedStatus('SUCCESS', 'Test PASSed. See ${BUILD_URL} for details (Mellanox internal link).')
-                  completedStatus('FAILURE', 'Test FAILed. See ${BUILD_URL} for details (Mellanox internal link).')
-                  completedStatus('ERROR',   'Test FAILed (errors).  See ${BUILD_URL} for details. (Mellanox internal link).')
-                  completedStatus('PENDING', 'Test still in progress...')
-              }
+              //commitStatus {
+              //    context('MellanoxLab')
+              //    completedStatus('SUCCESS', 'Test PASSed. See ${BUILD_URL} for details (Mellanox internal link).')
+              //    completedStatus('FAILURE', 'Test FAILed. See ${BUILD_URL} for details (Mellanox internal link).')
+              //    completedStatus('ERROR',   'Test FAILed (errors).  See ${BUILD_URL} for details. (Mellanox internal link).')
+              //    completedStatus('PENDING', 'Test still in progress...')
+              //}
           }
       }
   }
