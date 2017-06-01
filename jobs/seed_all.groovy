@@ -15,6 +15,7 @@ job('Seed1 test') {
   }
 
   parameters {
+	stringParam('sha1')
 	nodeParam('node') {
 		description('Select test nodes')
 		defaultNodes(['hpc-test-node'])
@@ -32,11 +33,37 @@ job('Seed1 test') {
 
 
   scm {
-    github('miked-mellanox/devops', 'master')
+    git {
+	    remote {
+		    github('miked-mellanox/devops')
+                    refspec('+refs/pull/*:refs/remotes/origin/pr/*')
+		    credentials('Mellanox-GitHub')
+	    }
+	    branch('${sha1}')
+    }
   }
 
+
   triggers {
-	  githubPush()
+      githubPullRequest {
+          admin('mellanox-hpc')
+          admins(['Mellanox','hcoll-team'])
+          orgWhitelist(['mellanox-hpc', 'Mellanox'])
+          cron('H/2 * * * *')
+          triggerPhrase('bot:retest')
+          onlyTriggerPhrase()
+          permitAll()
+          allowMembersOfWhitelistedOrgsAsAdmin()
+          extensions {
+              commitStatus {
+                  context('MellanoxLab')
+                  completedStatus('SUCCESS', 'Test PASSed. See ${BUILD_URL} for details (Mellanox internal link).')
+                  completedStatus('FAILURE', 'Test FAILed. See ${BUILD_URL} for details (Mellanox internal link).')
+                  completedStatus('ERROR',   'Test FAILed (errors).  See ${BUILD_URL} for details. (Mellanox internal link).')
+                  completedStatus('PENDING', 'Test still in progress...')
+              }
+          }
+      }
   }
 
   steps {
@@ -47,5 +74,9 @@ job('Seed1 test') {
       // removeAction('IGNORE')      
       removeAction('DELETE')
     }
+  }
+
+  publishers {
+    githubCommitNotifier()
   }
 }
