@@ -59,15 +59,15 @@ job('Seed1 test') {
 	  displayBuildErrorsOnDownstreamBuilds()
           allowMembersOfWhitelistedOrgsAsAdmin()
 	  useGitHubHooks()
-          //extensions {
-          //    commitStatus {
-          //        context('MellanoxLab')
-          //        completedStatus('SUCCESS', 'Test PASSed. See ${BUILD_URL} for details (Mellanox internal link).')
-          //        completedStatus('FAILURE', 'Test FAILed. See ${BUILD_URL} for details (Mellanox internal link).')
-          //        completedStatus('ERROR',   'Test FAILed (errors).  See ${BUILD_URL} for details. (Mellanox internal link).')
-          //        completedStatus('PENDING', 'Test still in progress...')
-          //    }
-          //}
+          extensions {
+              commitStatus {
+                  context('MellanoxLab')
+                  completedStatus('SUCCESS', 'Test PASSed. See ${BUILD_URL} for details (Mellanox internal link).')
+                  completedStatus('FAILURE', 'Test FAILed. See ${BUILD_URL} for details (Mellanox internal link).')
+                  completedStatus('ERROR',   'Test FAILed (errors).  See ${BUILD_URL} for details. (Mellanox internal link).')
+                  completedStatus('PENDING', 'Test still in progress...')
+              }
+          }
       }
   }
 
@@ -76,8 +76,6 @@ job('Seed1 test') {
     shell('env')
     dsl {
       external('jobs/*.groovy')  
-      // default behavior
-      // removeAction('IGNORE')      
       removeAction('DELETE')
     }
   }
