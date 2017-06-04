@@ -74,13 +74,14 @@ job('Seed1 test') {
   steps {
     shell('echo START on $(hostname)')
     shell('env')
-    dsl {
-      external('jobs/*.groovy')  
-      removeAction('DELETE')
-    }
+//    dsl {
+//      external('jobs/*.groovy')  
+//      removeAction('DELETE')
+//    }
   }
 
   publishers {
     githubCommitNotifier()
+    chucknorris();
   }
 }
