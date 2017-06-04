@@ -35,7 +35,7 @@ job('Seed1 test') {
   scm {
     git {
 	remote {
-	        github('miked-mellanox/devops','ssh')
+	        github('Mellanox/devops','ssh')
                 refspec('+refs/pull/*:refs/remotes/origin/pr/*')
 	        credentials('549927eb-7f38-4a8f-997a-81dd63605782')
 	}
