@@ -10,7 +10,7 @@ def viewRegex = "${projName}-.*"
 
 
 listView(projName) {
-	   description('Seed job for project ${projName}')
+	   description("Seed job for project ${projName}")
             columns {
                 status()
                 weather()
@@ -73,6 +73,7 @@ job(jobName) {
 	     timeout(20)
 	   }
 	   mergeOptions {
+	     remote('origin')
 	     branch('master')
 	   }
 	   submoduleOptions {
