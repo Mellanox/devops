@@ -8,7 +8,7 @@ def run_workspace_script(filename) {
 
 def main() {
 	def jobsDir = build.workspace + "/jobs"
-	new File(jobsDir.eachFile() { file->
+	new File(jobsDir.eachFile() {
 	   run_workspace_script(file.getName())
         }
 }
