@@ -28,7 +28,7 @@ listView('${projName}') {
 }
 
 
-job(${jobName}) {
+job('${jobName}') {
   
   concurrentBuild(true)
 
