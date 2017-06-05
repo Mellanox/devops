@@ -3,8 +3,32 @@
 //	description('Folder for all seeds')
 //}
 
+def defaultEmail = "miked@mellanox.com"
+def projName = "Seed1 test"
+def jobName = "${projName}-seed-job"
+def viewRegex = "${projName}-.*"
 
-job('Seed1 test') {
+
+listView(${projName}) {
+	   description('Seed job for project ${projName}')
+            columns {
+                status()
+                weather()
+                name()
+                lastSuccess()
+                lastFailure()
+                lastDuration()
+                buildButton()
+            }
+            filterBuildQueue()
+            filterExecutors()
+            jobs {
+                regex(/(?i)(${viewRegex})/)
+            }
+}
+
+
+job(${jobName}) {
   
   concurrentBuild(true)
 
@@ -35,13 +59,25 @@ job('Seed1 test') {
   scm {
     git {
 	remote {
+		name('origin')
 	        github('Mellanox/devops','ssh')
 		refspec('+refs/pull/*:refs/remotes/origin/pr/*')
 	        credentials('549927eb-7f38-4a8f-997a-81dd63605782')
 	}
 	branch('${sha1}')
 	extensions {
+	   cleanAfterCheckout()
            wipeOutWorkspace()
+	   cloneOptions {
+	     shallow(true)
+	     timeout(20)
+	   }
+	   mergeOptions {
+	     branch('master')
+	   }
+	   submoduleOptions {
+	     recursive(true)
+	   }
         }
     }
   }
@@ -49,16 +85,16 @@ job('Seed1 test') {
 
   triggers {
       githubPullRequest {
-          admins(['mellanox-hpc','Mellanox','hcoll-team'])
+          admins(['mellanox-hpc','Mellanox','hcoll-team','mellanox-github'])
           orgWhitelist(['mellanox-hpc', 'Mellanox'])
           cron('H/5 * * * *')
           triggerPhrase('bot:retest')
-          onlyTriggerPhrase()
           permitAll()
 	  autoCloseFailedPullRequests()
 	  displayBuildErrorsOnDownstreamBuilds()
           allowMembersOfWhitelistedOrgsAsAdmin()
-	//  useGitHubHooks()
+          onlyTriggerPhrase(false)
+	  useGitHubHooks(false)
           extensions {
               commitStatus {
                   context('MellanoxLab')
@@ -74,14 +110,31 @@ job('Seed1 test') {
   steps {
     shell('echo START on $(hostname)')
     shell('env')
-//    dsl {
-//      external('jobs/*.groovy')  
-//      removeAction('DELETE')
-//    }
+    dsl {
+      external('jobs/*.groovy')  
+      removeAction('DELETE')
+      removeViewAction("DELETE")
+    }
   }
 
+  recipients = defaultEmail
   publishers {
     githubCommitNotifier()
-    chucknorris();
+    chucknorris()
+    extendedEmail {
+       recipientList(recipients)
+       triggers {
+          failure {
+             sendTo {
+                recipientList()
+             }
+           }
+           fixed {
+              sendTo {
+                recipientList()
+              }
+            }
+        }
+    }
   }
 }
