@@ -22,9 +22,9 @@ listView('${projName}') {
             }
             filterBuildQueue()
             filterExecutors()
-            jobs {
-                regex(/(?i)(${viewRegex})/)
-            }
+            //jobs {
+            //   regex(/(?i)(${viewRegex})/)
+            //}
 }
 
 
