@@ -16,6 +16,6 @@ java -jar jenkins-cli.jar -s $j_url \
 sleep 3
 
 # run seed test
-java -jar jenkins-cli.jar -s $j_url \
-   -ssh -user hpcuser -i /hpc/local/etc/jenkins/jenkins_rsa build \
-   "Seed1 test"
+#java -jar jenkins-cli.jar -s $j_url \
+#   -ssh -user hpcuser -i /hpc/local/etc/jenkins/jenkins_rsa build \
+#   "Seed1 test"
