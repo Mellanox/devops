@@ -36,7 +36,7 @@ job('Seed1 test') {
     git {
 	remote {
 	        github('Mellanox/devops','ssh')
-		refspec('+refs/pull/*:refs/remotes/origin/pr/* +refs/heads/*:refs/remotes/origin/*')
+		refspec('+refs/pull/*:refs/remotes/origin/pr/*')
 	        credentials('549927eb-7f38-4a8f-997a-81dd63605782')
 	}
 	branch('${sha1}')
@@ -51,14 +51,14 @@ job('Seed1 test') {
       githubPullRequest {
           admins(['mellanox-hpc','Mellanox','hcoll-team'])
           orgWhitelist(['mellanox-hpc', 'Mellanox'])
-          cron('H/2 * * * *')
+          cron('H/5 * * * *')
           triggerPhrase('bot:retest')
           onlyTriggerPhrase()
           permitAll()
 	  autoCloseFailedPullRequests()
 	  displayBuildErrorsOnDownstreamBuilds()
           allowMembersOfWhitelistedOrgsAsAdmin()
-	  useGitHubHooks()
+	//  useGitHubHooks()
           extensions {
               commitStatus {
                   context('MellanoxLab')
