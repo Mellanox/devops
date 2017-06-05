@@ -36,7 +36,7 @@ job('Seed1 test') {
     git {
 	remote {
 	        github('Mellanox/devops','ssh')
-                refspec('+refs/pull/*:refs/remotes/origin/pr/*')
+		refspec('+refs/pull/*:refs/remotes/origin/pr/* +refs/heads/*:refs/remotes/origin/*')
 	        credentials('549927eb-7f38-4a8f-997a-81dd63605782')
 	}
 	branch('${sha1}')
