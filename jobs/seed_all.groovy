@@ -91,7 +91,7 @@ job(jobName) {
           cron('H/5 * * * *')
           triggerPhrase('bot:retest')
           permitAll()
-	  autoCloseFailedPullRequests()
+	  autoCloseFailedPullRequests(false)
 	  displayBuildErrorsOnDownstreamBuilds()
           allowMembersOfWhitelistedOrgsAsAdmin()
           onlyTriggerPhrase(false)
