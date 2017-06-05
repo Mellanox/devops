@@ -9,7 +9,7 @@ def jobName = "${projName}-seed-job"
 def viewRegex = "${projName}-.*"
 
 
-listView(${projName}) {
+listView('${projName}') {
 	   description('Seed job for project ${projName}')
             columns {
                 status()
